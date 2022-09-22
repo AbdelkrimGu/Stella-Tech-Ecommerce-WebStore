@@ -1,0 +1,614 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stella Tech</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%} " />
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/slick.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/slick-theme.css' %}" />
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/nouislider.min.css'%}" />
+    <!-- Font Awesome Icon -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}" />
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static  'css/style2.css'%} " />
+    <link type="text/css" rel="stylesheet" href="{% static  'css/auth.css'%} " />
+
+
+    <link rel="icon" href="img/logo-boutique1.ico" type="image/gif" sizes="16x16">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+
+
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+    </script>
+
+
+
+</head>
+
+<body>
+    <div id="Container">
+        <div id="myContainer">
+            <!-- HEADER -->
+            <header>
+                <!-- MAIN HEADER -->
+                <div id="header">
+                    <!-- container -->
+                    <div class="container">
+                        <!-- row -->
+                        <div class="row">
+                            <!-- LOGO -->
+                            <div class="col-md-3">
+                                <div class="header-logo">
+                                    <a href="#" class="logo">
+                                        <img src="{% static 'img/LOGOO.png'%}" alt="" width="250">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /LOGO -->
+
+                            <!-- SEARCH BAR -->
+                            <div class="col-md-6">
+                                <div class="header-search">
+                                    <form method="GET">
+                                        {% csrf_token %} {% if form.errors %} {% for error in form.errors %} {{ error }} {% endfor %} {% endif %}
+
+                                        <input class="input" placeholder="Search here" name="name" id="id_name">
+                                        <button class="search-btn" type="submit">Search <i
+												class="fa fa-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /SEARCH BAR -->
+
+                            <!-- ACCOUNT -->
+                            <div class="col-md-3 clearfix">
+                                <div class="header-ctn">
+                                    <!-- Wishlist -->
+                                    <div class="dropdown" id="wish">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            <i class="fa fa-heart"></i>
+                                            <span>Your Wish</span>
+                                            <div class="qty" id="total_wish"> {{wish.get_wishh_items}} </div>
+
+                                        </a>
+                                        <div id="test" class="cart-dropdown">
+                                            <div id="list_wish">
+                                                <div class="cart-list">
+                                                    {% for item in items2 %}
+                                                    <div class="product-widget">
+                                                        <div class="product-img">
+                                                            <img src="{{item.product.imageURL}}" alt="">
+                                                        </div>
+                                                        <div class="product-body">
+                                                            <h3 class="product-name"><a href="#">{{item.product.name}}</a>
+                                                            </h3>
+                                                            <h4 class="product-price">${{item.product.price}}
+                                                            </h4>
+                                                        </div>
+                                                        <button data-product="{{item.product.id}}" data-action="remove-wish" class="delete update-wish"><i
+																class="fa fa-close"></i></button>
+                                                    </div>
+
+                                                    {% endfor %}
+
+                                                </div>
+                                                <div class="cart-summary">
+                                                    <small>{{wish.get_wishh_items}} Item(s) selected</small>
+                                                </div>
+                                                <div class="cart-btns">
+                                                    {% if request.user.is_authenticated %}
+                                                    <a href="{% url 'account' request.user.customer.id %}">Add to
+														cart</a> {% else %}
+                                                    <a href="{% url 'login'  %}">View Profile</a> {% endif %} <a href="{% url 'wishlist' %}">View details <i
+															class="fa fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /Wishlist -->
+
+                                    <!-- Cart -->
+                                    
+                                    <div class="dropdown" id="cart">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            <span>Your Cart</span>
+                                            <div class="qty" id="total_cart"> {{cartItems}} </div>
+                                            <!-- <div class="qty">3</div> -->
+                                        </a>
+                                        <div class="cart-dropdown">
+                                            <div id="list_cart">
+                                                <div class="cart-list" id="cart7">
+                                                    {% for item in items%}
+                                                    <div class="product-widget" id="{{item.product.name}}{{item.product.id}}">
+                                                        <div class="product-img">
+                                                            <img src="{{item.product.imageURL}}" alt="">
+                                                        </div>
+                                                        <div class="product-body">
+                                                            <h3 class="product-name"><a href="#">{{item.product.name}}</a>
+                                                            </h3>
+                                                            <h4 class="product-price"><span class="qty">{{item.quantity}}x</span>${{item.product.price}}
+                                                            </h4>
+                                                        </div>
+                                                        <!-- <i class="fa fa-colse">
+                                                            <button data-product="{{item.product.id}}" data-action="remove" class="delete update-cart"></button>
+                                                        </i> -->
+                                                        <button data-product="{{item.product.id}}" data-action="remove" class="delete update-cart" >
+                                                            <i class="fa fa-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="cart-summary" id="cart-summary">
+                                                    <small>{{order.get_cart_items}} Item(s) selected</small>
+                                                    <h5>SUBTOTAL: ${{order.get_total_cart}}</h5>
+                                                </div>
+                                                <div class="cart-btns">
+                                                    <a href="{% url 'cart' %}">View Cart</a>
+                                                    <a href="{% url 'checkout' %}">Checkout <i
+															class="fa fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- /Cart -->
+
+
+
+
+                                    {% if request.user.is_authenticated %}
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            <i class="fa fa-user"></i>
+                                            <span> Your Account</span>
+                                            <!-- <div class="qty">3</div> -->
+                                        </a>
+
+                                        <div class="cart-dropdown">
+
+                                            <div class="cart-summary">
+                                                <h4>Username: {{request.user.username}}</h4>
+                                                <small>Settings </small>
+
+                                            </div>
+                                            <div class="cart-btns">
+                                                {% if request.user.is_authenticated %}
+                                                <a href="{% url 'account' request.user.customer.id %}">View Profile</a> {% else %}
+                                                <a href="{% url 'login'  %}">View Profile</a> {% endif %}
+                                                <a href="{% url 'logout' %}">Logout <i
+														class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div>
+                                        {% else %}
+
+                                        <div class="box">
+                                            <a id="myBtn" style="cursor: pointer">
+                                                <i class="fa fa-user"></i>
+                                                <span>Login</span>
+                                                <!-- <div class="qty">2</div> -->
+                                            </a>
+                                        </div>
+
+                                        {% endif %}
+
+
+                                        <!-- Menu Toogle -->
+                                        <!-- <div class="menu-toggle">
+                                            <a href="#">
+                                                <i class="fa fa-bars"></i>
+                                                <span>Menu</span>
+                                            </a>
+                                        </div> -->
+                                        <!-- /Menu Toogle -->
+                                    </div>
+                                </div>
+                                <!-- /ACCOUNT -->
+                            </div>
+                            <!-- row -->
+                        </div>
+                    </div>
+                </div>
+                <!-- container -->
+                <!-- /MAIN HEADER -->
+
+            </header>
+
+            <!-- /HEADER -->
+
+
+            <div class="row">
+                {% block content %} {% endblock content %}
+            </div>
+
+
+            <!-- NEWSLETTER -->
+            <div id="newsletter" class="section">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="newsletter">
+                                <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                                <form>
+                                    <input class="input" type="email" placeholder="Enter Your Email">
+                                    <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                                </form>
+                                <ul class="newsletter-follow">
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+
+                <!-- /NEWSLETTER -->
+
+                <!-- FOOTER -->
+                <footer id="footer">
+                    <!-- top footer -->
+                    <div class="section">
+                        <!-- container -->
+                        <div class="container">
+                            <!-- row -->
+                            <div class="row">
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="footer">
+                                        <h3 class="footer-title">About Us</h3>
+                                        <ul class="footer-links">
+                                            <li><a href="#"><i class="fa fa-map-marker"></i>EL WIAM SIDI BEL ABBES</a>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-phone"></i>043445879</a></li>
+                                            <li><a href="#"><i class="fa fa-envelope-o"></i>StellaTech@email.com</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="footer">
+                                        <h3 class="footer-title">Categories</h3>
+                                        <ul class="footer-links">
+                                            {% for cat in catalogues %}
+                                            <li><a href="{% url 'ProductItem' cat.id %}">{{cat.title}}</a></li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix visible-xs"></div>
+
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="footer">
+                                        <h3 class="footer-title">Information</h3>
+                                        <ul class="footer-links">
+                                            <li><a href="#">About Us</a></li>
+                                            <li><a href="#">Contact Us</a></li>
+                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="#">Orders and Returns</a></li>
+                                            <li><a href="#">Terms & Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="footer">
+                                        <h3 class="footer-title">Service</h3>
+                                        <ul class="footer-links">
+                                            <li><a href="#">My Account</a></li>
+                                            <li><a href="{% url 'cart' %}">View Cart</a></li>
+                                            <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
+                                            <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                        </div>
+                        <!-- /container -->
+                    </div>
+                    <!-- /top footer -->
+
+                    <!-- bottom footer -->
+                    <div id="bottom-footer" class="section">
+                        <div class="container">
+                            <!-- row -->
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <ul class="footer-payments">
+                                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <!-- /row -->
+                        </div>
+                        <!-- /container -->
+                    </div>
+                    <!-- /bottom footer -->
+                </footer>
+                <!-- /FOOTER -->
+
+            </div>
+
+            <!-- /SECTION -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+        </div>
+    </div>
+
+    <div id="myModal" class="Modal is-hidden is-visuallyHidden">
+
+        <div id="login" class="Modal-content">
+            <span id="closeModal2" class="Close">&times;</span>
+
+            <form class="form" method="post" id="login">
+                {% csrf_token %}
+
+                <img src="{% static 'img/Log.png'%} " alt="" style="    margin-left: 45%; width: 70px;">
+                <br>
+
+                <h1 class="form__title" style="color:#162c38;    margin-top: 24px;">LOGIN</h1>
+                <div class="form__message form__message--error"></div>
+                <div class="form__input-group">
+                    <input name="username" id="username" type="text" class="form__input" autofocus placeholder="Username or email" required>
+                    <div class="form__input-error-message"> </div>
+                </div>
+                <div class="form__input-group">
+                    <input name="password" id="password" type="password" class="form__input" autofocus placeholder="Password" required>
+                    <div class="form__input-error-message"></div>
+                    <p class="form__text">
+                        <a href="{% url 'password_reset'%}" class="form__link">Forgot your password?</a>
+                    </p>
+                </div>
+
+                <ul id="mess_login" class="messages" style="	font-weight: 500;
+												margin-left: 11pc;
+												color:red;
+											">
+
+                </ul>
+                <br>
+
+                <button class="form__button" type="submit" name="login">Continue</button>
+
+                <p class="form__text">
+                    <a class="form__link" onclick="create_acc()">Don't have an account? Create account</a>
+                </p>
+            </form>
+        </div>
+
+
+        <div id="create" class="Modal-content" style="display: none;">
+            <span id="closeModal" class="Close">&times;</span>
+
+            <form class="form" method="post" action="{% url 'signup' %}">
+                {% csrf_token%}
+                <img src="{% static 'img/Log.png'%} " alt="" style="    margin-left: 45%; width: 70px;">
+
+                <h1 class="form__title" style="color:#162c38; margin-top: 24px;">Create Account</h1>
+
+                <div class="form__message form__message--error"></div>
+                <div id="uss" class="form__input-group">
+                    <input type="text" class="form__input" placeholder="Username" name="username" id="id_username" autofocus="" required>
+                    <div class="form__input-error-message"></div>
+                </div>
+                <div class="form__input-group">
+                    <input type="email" class="form__input" autofocus placeholder="Email Address" name="email" required>
+                    <div class="form__input-error-message"></div>
+                </div>
+                <div class="form__input-group">
+                    <input type="password" class="form__input" autofocus placeholder="Password" name="password1" required>
+                    <div class="form__input-error-message"></div>
+                </div>
+                <div class="form__input-group">
+                    <input type="password" class="form__input" autofocus placeholder="Confirm password" name="password2" required>
+                    <div class="form__input-error-message"></div>
+                </div>
+
+                <ul id="mess_create" class="messages" style="
+											font-weight: 500;
+											margin-left: 7pc;
+											color:red;">
+
+                </ul>
+
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <label for="terms">
+						<span></span>
+						I've read and accept the <a href="#">terms & conditions</a>
+					</label>
+                </div>
+
+                <button class="form__button" type="submit">Continue</button>
+                <p class="form__text">
+                    <a class="form__link" onclick="login()">Already have an account? Sign in</a>
+                </p>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        function switching(id) {
+            const active = document.getElementsByClassName('Modal-content').item(0);
+            active.setAttribute('style', 'display : none;');
+            active.removeAttribute('class');
+            const newActive = document.getElementById(id);
+            newActive.setAttribute('class', 'Modal-content');
+            newActive.removeAttribute('style');
+            newActive.setAttribute('style', 'display : block;');
+        }
+
+        function login() {
+            document.getElementById('create').style.display = "none";
+            document.getElementById('login').style.display = "block";
+        }
+
+        function create_acc() {
+            document.getElementById('create').style.display = "block";
+            document.getElementById('login').style.display = "none";
+        }
+    </script>
+
+
+    <!-- jQuery Plugins -->
+    <script src="{% static 'js/jquery.min.js'%}  "></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/slick.min.js'%} "></script>
+    <script src="{% static 'js/nouislider.min.js'%}"></script>
+    <script src="{% static 'js/jquery.zoom.min.js'%}"></script>
+    <script src="{% static 'js/main.js'%}"></script>
+    <script src="{% static 'js/main2.js'%}"></script>
+    <script src="{% static 'js/main3.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/cart.js'%}"></script>
+    <script src="{% static 'js/popup.js'%}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
+    <script>
+        $(document).on('submit', '#login', function(e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/login/',
+                data: {
+                    username: $("input[name=username]").val(),
+                    password: $("input[name=password]").val(),
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                },
+                success: function(data) {
+
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        $("#mess_login").html('<li class="">' + data.erreur + '  </li>');
+                    }
+                    console.log("succeded");
+
+                },
+                error: function(data, textStatus, errorThrown) {
+                    alert('failed');
+                }
+            })
+        });
+
+        $(document).on('submit', '#create', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/signup/',
+                data: {
+                    username: $("#id_username").val(),
+                    email: $("input[name=email]").val(),
+                    password1: $("input[name=password1]").val(),
+                    password2: $("input[name=password2]").val(),
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                },
+                success: function(data) {
+
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        $("#mess_create").html('<li class="">' + data.erreur + '  </li>');
+                    }
+                    console.log("succeded");
+
+                },
+                error: function(data, textStatus, errorThrown) {
+
+                    alert('failed');
+
+
+                }
+            })
+        });
+
+        $(document).ready(function() {
+            $("#id_username").change(function() {
+                var username = $(this).val();
+                $.ajax({
+                    url: '/validate_username',
+                    data: {
+                        'username': username,
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.is_taken) {
+                            $('#uss').addClass('form__input--error');
+
+                        }
+
+                    }
+                })
+
+            })
+        })
+    </script>
+
+
+
+    </div>
+</body>
+
+</html>

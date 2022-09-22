@@ -1,0 +1,79 @@
+{% extends 'dashboard/dash.html' %}
+{% load static %}
+
+{% block content %}
+<div id="list-users" class="activated" style="display : block;">
+
+    <div class="section-admin">
+        <!-- SECTION -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h3 class="title">List of Administrators</h3>
+                        {% if request.user.is_superuser %}
+
+                        <div class="product-btns-admin">
+                            <button class="btn-ajo" type="button"><a href="{% url 'AddUser'%}"> Add Admin </a>
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    {% if request.user.is_superuser%}
+                    {% for user in users %}
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-body">
+                                <!-- <p class="product-category">Category</p> -->
+                                <h3 class="catigory-name"><a href="#"> {{user.name}}</a></h3>
+                                <h7 class="catigory-name"><a href="#">Added By: {{user.user.username}}</a></h7>
+                                <br>
+                                <h5 class="catigory-name"><a href="#"> {{user.Email}}</a></h5>
+                                <h5 class="catigory-name"><a href="#"> {{user.Phone}}</a></h5>
+                                <hr>
+                                <div class="product-btns-admin">
+
+                                    <a class="btn-mod" href="{% url 'user_edit' user.id%}">Edit</a>
+                                    <a class="btn-mod" href="{% url 'user_delete' user.id%}">Delete</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                    {% endfor %}
+                    {% else %}
+                    <h5 class="title"> you don't have access to this page .</h5>
+
+                    {% endif %}
+
+
+                    <div class="clearfix visible-sm visible-xs"></div>
+
+                </div>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <ul class="store-pagination">
+                        <li class="active">1</li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+
+</div>
+{% endblock %}

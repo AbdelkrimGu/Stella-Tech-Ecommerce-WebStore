@@ -1,0 +1,216 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li class="active"><a href="{% url 'categorypage' %}">Categories</a></li>
+                <li><a href="{% url 'brandspage' %}">Brands</a></li>
+
+                <li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Categories</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- aside Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Top selling</h3>
+                    {% for product in products %}
+                    {% if product.is_top_selling and not product.is_archived%}
+                    <div class="product-widget">
+                        <div class="product-img">
+                            <img src="{{product.imageURL}}" alt="">
+                        </div>
+                        <div class="product-body">
+                            <p class="product-category">{{product.category}}</p>
+                            <h3 class="product-name"><a
+                                    href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                            <h4 class="product-price">${{product.price}} <del
+                                    class="product-old-price">${{product.old_price}}</del></h4>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+
+                </div>
+
+                <br>
+                <br>
+
+                <div class="aside">
+                    <h3 class="aside-title">Top ranking</h3>
+                    {% for product in products %}
+                    {% if product.is_top_ranking and not product.is_archived%}
+
+                    <div class="product-widget">
+                        <div class="product-img">
+                            <img src="{{product.imageURL}}" alt="">
+                        </div>
+                        <div class="product-body">
+                            <p class="product-category">{{product.category}}</p>
+                            <h3 class="product-name"><a href="#">{{product.name}}</a></h3>
+                            <h4 class="product-price">${{product.price}} <del
+                                    class="product-old-price">${{product.old_price}}</del></h4>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+
+                </div>
+                <!-- /aside Widget -->
+            </div>
+            <!-- /ASIDE -->
+
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                        <h3 class="aside-title">CATEGORIES</h3>
+
+                        <label>
+                            Sort By:
+                            <select class="input-select">
+                                <option value="0">Category</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Show:
+                            <select class="input-select">
+                                <option value="0">6</option>
+                            </select>
+                        </label>
+                    </div>
+                    <ul class="store-grid">
+                        <li class="active"><i class="fa fa-th"></i></li>
+
+                    </ul>
+                </div>
+                <!-- /store top filter -->
+
+                <!-- store products -->
+                <div class="row">
+                    <!-- product -->
+                    {% for catalog in categories %}
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="{{catalog.imageURL}}" alt="" width="200" height="200">
+
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{catalog.get_total}} articles</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'ProductItem' catalog.id %}">{{catalog.title}}</a></h3>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-btns">
+                                    <button class="add-to-wishlist" data-product={{product.id}}
+                                        data-action="add-wish" class="update-wish"><i
+                                            class="fa fa-heart-o"></i><span class="tooltipp">add to
+                                            wishlist</span></button>
+                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span
+                                            class="tooltipp">add to compare</span></button>
+                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
+                                            view</span></button>
+
+                                </div>
+                            </div>
+
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> View
+                                    More</button>
+
+                            </div>
+
+                        </div>
+                        <br>
+                        <br>
+
+                    </div>
+                    <!-- /product -->
+                    {% endfor %}
+                </div>
+                <!-- /store products -->
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <ul class="store-pagination">
+                        {% if categories.has_previous %}
+                        <li><a href="?page={{ categories.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in categories.paginator.page_range %}
+                        {% if categories.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if categories.has_next %}
+                        <li><a href="?page={{ categories.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+{% endblock %}

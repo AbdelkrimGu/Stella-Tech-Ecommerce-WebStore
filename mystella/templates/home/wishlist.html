@@ -1,0 +1,114 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'categorypage' %}">Categories</a></li>
+                <li><a href="{% url 'brandspage' %}">Brands</a></li>
+                <li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">Wishes</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">wishs-list</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- Order Details -->
+            <div class="col-md-12 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">Your Wish-List</h3>
+                </div>
+                <hr>
+                <div class="order-summary">
+
+                </div>
+                <div class="cart-list">
+                    {% for item in items2 %}
+                    <div class="product-widget">
+                        <div class="product-img">
+                            <img src="{{item.product.imageURL}}" alt="" style="width:150%;">
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-name"><a href="#" style="margin-left: 2pc;
+                                font-size: initial;
+                                font-family: 'Montserrat';">
+                                    {{item.product.name}}</a></h3>
+                            <h4 class="product-price" style="margin-left: 2pc;">
+                                ${{item.product.price}}</h4>
+                            <button data-product={{item.product.id}} data-action="add"
+                                class="add-to-cart-btn update-cart" style="	padding: 8px 20px;
+                                                                background-color: #248074;
+                                                                border: none;
+                                                                border-radius: 40px;
+                                                                color: #FFF;
+                                                                text-transform: uppercase;
+                                                                font-weight: 700;
+                                                                text-align: center;
+                                                                -webkit-transition: 0.2s all;
+                                                                margin-left: 55pc;
+                                                                transition: 0.2s all;"> add to cart</button>
+                        </div>
+
+                        <button data-product="{{item.product.id}}" data-action="delete-wish"
+                            class="delete update-wish "><i class="fa fa-close update-wish"></i></button>
+
+                    </div>
+                    <hr>
+                    {% endfor %}
+
+
+
+                </div>
+                <a href="{% url 'checkout' %}" class="primary-btn order-submit">Checkout</a>
+
+            </div>
+
+
+        </div>
+        <!-- /Order Details -->
+    </div>
+    <!-- /row -->
+</div>
+<!-- /SECTION -->
+
+
+    
+{% endblock %}

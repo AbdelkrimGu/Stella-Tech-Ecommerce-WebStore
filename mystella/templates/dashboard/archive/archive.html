@@ -1,0 +1,78 @@
+{% extends 'dashboard/dash.html' %}
+{% load static %}
+
+{% block content %}
+<div id="archive"  class="activated" style="display : block;">
+
+    <div class="section-admin">
+        <!-- SECTION -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h3 class="title">List of Archived Products</h3>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <!-- product -->
+                    {% for product in products %}
+                    {% if product.is_archived %}
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                                <div class="product-label">
+                                    <span class="sale">{{product.getremise}}%</span>
+                                    {% if product.is_new %}
+                                    <span class="new">NEW</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.catalog}}</p>
+                                <h3 class="product-name"><a href="#">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.price}}</del>
+                                </h4>
+                                <hr>
+                                <div class="product-btns-admin">
+
+                                    <a class="btn-mod" href="{% url 'product_edit' product.id%}">Edit</a>
+                                    <a class="btn-mod" href="{% url 'product_archive' product.id%}">Show</a>
+                                    <a class="btn-mod" href="{% url 'product_delete' product.id%}">Delete</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif%}
+                    {% endfor%}
+
+                    <div class="clearfix visible-sm visible-xs"></div>
+
+                </div>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <ul class="store-pagination">
+                        <li class="active">1</li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+{% endblock %}

@@ -1,0 +1,466 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li ><a href="{% url 'homepage' %}">Home</a></li>
+                    <li  ><a href="{% url 'categorypage' %}">Categories</a></li>
+                    <li  ><a href="{% url 'brandspage' %}">Brands</a></li>
+
+                    <li class="active"><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                    <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+        </div>
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
+
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb-tree">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Best deals products</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
+
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- ASIDE -->
+                <div id="aside" class="col-md-3">
+                    <!-- aside Widget -->
+                        <div class="aside">
+
+                        <h1 class="aside-title" style="font-size:20px;">Feature</h1>
+
+                                <label style="font-weight: 500;
+                                                font-size: 12px;
+                                                text-transform: uppercase;
+                                                margin-right: 15px;"> Find what you want !</label>
+                                <br>
+                                <br>
+                                <br>
+
+
+                    <!-- /aside Widget -->
+
+                    <!-- aside Widget -->
+                            <form method="GET" action=".">
+                    <div class="aside">
+                    <div class="checkbox-filter">
+
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="promo" name="is_promo">
+                            <label for="promo">
+                                <span></span>
+                                Promo
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="Guarented" name="is_garanted">
+                            <label for="Guarented">
+                                <span></span>
+                                Guarented
+                            </label>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+                    <div class="aside">
+
+                        <h3 class="aside-title">Price</h3>
+                            <br>
+                        <div class="price-filter">
+                            <div id="price-slider"></div>
+                            <div class="input-number price-min">
+                                <input id="price-min" type="number" name="price__gt">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                            <span>-</span>
+                            <div class="input-number price-max">
+                                <input id="price-max" type="number" name="price__lt">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                        </div>
+                            <br>
+
+                    </div>
+
+                    <!-- /aside Widget -->
+
+                    <!-- aside Widget -->
+
+
+
+    </div>
+
+
+                    <div class="aside">
+                    <h3 class="aside-title">Brand</h3>
+                    <div class="checkbox-filter">
+
+                        {% for brand in brands %}
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="{{brand.id}}" name="brand" value="{{brand.name}}" class="checkbox-filter">
+                            <label for="{{brand.id}}">
+                                <span></span>
+                                {{brand.name}}
+                                <small>({{brand.get_total}})</small>
+                            </label>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+                    <div class="aside">
+                    <h3 class="aside-title">Operating system </h3>
+                    <div class="checkbox-filter">
+
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="Op-1"  name="System" value="Android">
+                            <label for="Op-1">
+                                <span></span>
+                                Android
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="Op-2"  name="System" value="IOS">
+                            <label for="Op-2">
+                                <span></span>
+                                IOS
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="Op-3"   name="System" value="Fire">
+                            <label for="Op-3">
+                                <span></span>
+                                Fire
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="Op-4"  name="System" value="Linux">
+                            <label for="Op-4">
+                                <span></span>
+                                Linux
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="Op-5" name="System" value="Windows">
+                            <label for="Op-5">
+                                <span></span>
+                                Windows
+                            </label>
+                        </div>
+
+
+                    </div>
+                </div>
+                    <div class="aside">
+                    <h3 class="aside-title">Memory
+                                                 </h3>
+                    <div class="checkbox-filter">
+
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-2" value="4Go" name="memory">
+                            <label for="category-2">
+                                <span></span>
+                                4 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-3"value="8Go" name="memory">
+                            <label for="category-3">
+                                <span></span>
+                                8 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-4"value="16Go" name="memory">
+                            <label for="category-4">
+                                <span></span>
+                                16 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-5"value="32Go" name="memory">
+                            <label for="category-5">
+                                <span></span>
+                                32 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-6"value="64Go" name="memory">
+                            <label for="category-6">
+                                <span></span>
+                                64 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-7"value="128Go" name="memory">
+                            <label for="category-7">
+                                <span></span>
+                                128 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-8"value="256Go" name="memory">
+                            <label for="category-8">
+                                <span></span>
+                                256 Go
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="category-9"value="1To" name="memory">
+                            <label for="category-9">
+                                <span></span>
+                                1 To ( For laptops )
+                            </label>
+                        </div>
+
+
+                    </div>
+                </div>
+                                                                    <div class="aside">
+                    <h3 class="aside-title">Camera </h3>
+                    <div class="checkbox-filter">
+
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="cam-1"name="camera" value="up to 2.9 MP">
+                            <label for="cam-1">
+                                <span></span>
+                                up to 2.9 MP
+
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="cam-2" name="camera" value="3 to 4.9 MP" >
+                            <label for="cam-2">
+                                <span></span>
+                                3 to 4.9 MP
+
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="cam-3" name="camera" value="5 to 7.9 MP" >
+                            <label for="cam-3">
+                                <span></span>
+                            5 to 7.9 MP
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="cam-4" name="camera" value="8 to 12.9 MP" >
+                            <label for="cam-4">
+                                <span></span>
+                            8 to 12.9 MP
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="cam-5" name="camera" value="13 to 19.9 MP" >
+                            <label for="cam-5">
+                                <span></span>
+                                    13 to  19.9 MP
+                            </label>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="cam-6" name="camera" value="20 MP and above">
+                                <label for="cam-6"  >
+                                    <span></span>
+                                    20 MP and above
+                                </label>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                    <br>
+                    <br>
+                    <button class="search" type="submit">search </button>
+                        </form>
+
+
+
+                <!-- /aside Widget -->
+
+                    <!-- /aside Widget -->
+
+                    <!-- aside Widget -->
+
+                    <!-- /aside Widget -->
+
+                    <!-- aside Widget -->
+                    <!-- /aside Widget -->
+<br>
+
+
+
+                </div>
+                <!-- /ASIDE -->
+
+                <!-- STORE -->
+                <div id="store" class="col-md-9">
+                    <!-- store top filter -->
+                    <div class="store-filter clearfix">
+                        <div class="store-sort">
+                            <h3 class="aside-title">Best Deals</h3>
+
+                            <label>
+                                Show:
+                                <select class="input-select">
+                                    <option value="0">{{taille}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <ul class="store-grid">
+                            <li class="active"><i class="fa fa-th"></i></li>
+
+                        </ul>
+                    </div>
+
+
+                                        <!-- /store top filter -->
+
+                    <!-- store products -->
+                    <div class="row">
+                        <!-- product -->
+                        {% for product in products %}
+                        {% if not product.is_archived  %}
+
+                        <div class="col-md-4 col-xs-6">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src="{{product.imageURL}}" alt="">
+                                    <div class="product-label">
+                                        <span class="sale">{{product.getremise}}%</span>
+
+{% if product.is_new %}
+                                                <span class="new">NEW</span>
+                                                {% endif %}
+
+
+                                    </div>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">{{product.catalog}}</p>
+                                    <h3 class="product-name"><a href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                    <h4 class="product-price">${{product.price}}  <del class="product-old-price">${{product.price}}</del></h4>
+                                    <div class="product-rating">
+                                        {% if 1 >= product.getrate  %}
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            {% elif  1 < product.getrate and product.getrate <= 2  %}
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            {% elif  2 < product.getrate  and product.getrate <= 3%}
+
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            {% elif 3 < product.getrate and product.getrate <= 4   %}
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-o empty"></i>
+                                                            {% elif 4 < product.getrate and product.getrate <= 5 %}
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            {% endif %}
+                                    </div>
+                                    <div class="product-btns">
+                                        <button  data-product={{product.id}} data-action="add-wish" class="update-wish" ><i class="fa fa-heart-o update-wish "></i><span class="tooltipp update-wish">add to wishlist</span></button>
+                                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart">
+                                            <button data-product={{product.id}} data-action="add" class="add-to-cart-btn update-cart" > add to cart</button>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <!-- /product -->
+{% endif %}
+{% endfor %}
+                    </div>
+                    <!-- /store products -->
+
+                    <!-- store bottom filter -->
+                    <div class="store-filter clearfix">
+                        <ul class="store-pagination">
+                            {% if products.has_previous %}
+                                  <li><a href="?page={{ products.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                  <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %}
+                                {% for i in products.paginator.page_range %}
+                                  {% if products.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                  {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if products.has_next %}
+                                  <li><a href="?page={{ products.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                  <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                        </ul>
+                    </div>
+                    <!-- /store bottom filter -->
+                </div>
+                <!-- /STORE -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+{% endblock %}

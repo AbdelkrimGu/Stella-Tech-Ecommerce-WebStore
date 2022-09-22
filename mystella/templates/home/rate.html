@@ -1,0 +1,46 @@
+<div class="product-rating">
+	{% for review in reviews %}
+	{% if review.product.id == product.id %}
+	<div class="review-heading">
+		<div class="review-rating">
+			{% if review.rating == 1 %}
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star-o empty"></i>
+			<i class="fa fa-star-o empty"></i>
+			<i class="fa fa-star-o empty"></i>
+			<i class="fa fa-star-o empty"></i>
+			{% elif review.rating == 2 %}
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star-o empty"></i>
+			<i class="fa fa-star-o empty"></i>
+			<i class="fa fa-star-o empty"></i>
+			{% elif review.rating == 3 %}
+
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star-o empty"></i>
+			<i class="fa fa-star-o empty"></i>
+			{% elif review.rating == 4 %}
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star-o empty"></i>
+			{% elif review.rating == 5 %}
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			{% endif %}
+
+
+
+		</div>
+	</div>
+
+	{% endif %}
+	{% endfor %}
+</div>

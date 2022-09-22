@@ -1,0 +1,67 @@
+{% extends 'dashboard/dash.html' %}
+{% load static %}
+
+{% block content %}
+<div id="brands" class="activated" style="display : block;">
+    <div class="section-admin">
+        <!-- SECTION -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h3 class="title">List of Brands</h3>
+                        <div class="product-btns-admin">
+                            <button class="btn-ajo" type="button"> <a href="{% url 'AddBrand'%}">Add Brand</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    {% for brand in brands %}
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-body">
+                                <div class="product-img">
+                                    <img src="{{brand.imageURL}}" alt="" >
+                                </div>
+                                <!-- <p class="product-category">Category</p> -->
+                                <h3 class="catigory-name"><a href="#"> {{brand.name}}</a></h3>
+                                <hr>
+                                <div class="product-btns-admin">
+                                    <a class="btn-mod" href="{% url 'brand_edit' brand.id%}">Edit</a>
+                                    <a class="btn-mod" href="{% url 'brand_delete' brand.id%}">Delete</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                    {% endfor %}
+
+                    <div class="clearfix visible-sm visible-xs"></div>
+
+                </div>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <ul class="store-pagination">
+                        <li class="active">1</li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+
+</div>
+
+{% endblock %}

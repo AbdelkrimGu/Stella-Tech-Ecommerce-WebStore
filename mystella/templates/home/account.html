@@ -1,0 +1,272 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'categorypage' %}">Categories</a></li>
+                <li><a href="{% url 'brandspage' %}">Brands</a></li>
+                <li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Profile</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+
+            <!-- section title -->
+
+            <div class="container">
+                <div class="main-body">
+
+                    <div class="row gutters-sm">
+                        <div class="col-md-8">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">Full Name</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.first_name}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">Email</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.email}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">Phone</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.Phone}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">City</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.city}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">Address</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.Address}}
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">Sex</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.Sex}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a class="mb-0">Code</a>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{account.code}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <a style="margin-left:320px" class="btn btn-info " target="__blank"
+                                                href="{% url 'edit_account' account.id %}">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                            alt="Admin" class="rounded-circle" width="150">
+                                        <div class="mt-3">
+                                            <h4>{{request.user.username}}</h4>
+                                            <p class="text-secondary mb-1">{{request.user.username}}</p>
+                                            <p class="text-muted font-size-sm">{{account.Phone}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-3">
+                                <ul class="list-group list-group-flush">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <a class="mb-0" href="{% url 'checkout' %}">Checkout</a><i
+                                            class="fa fa-shopping-cart" aria-hidden="true"
+                                            style=" color: cadetblue;"></i>
+
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <a class="mb-0" href="{% url 'wishlist' %}">WishList</a> <i
+                                            class="fa fa-heart" aria-hidden="true"
+                                            style="color: cadetblue;"></i>
+
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <a class="mb-0" href="{% url 'cart' %}">CartItems</a> <i
+                                            class="fa fa-cart-arrow-down" aria-hidden="true"
+                                            style=" color: cadetblue;"></i>
+
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <a class="mb-0" href="{% url 'change_password'%}">Change password</a> <i
+                                            class="fa fa-exchange" aria-hidden="true"
+                                            style=" color: cadetblue;"></i>
+
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <a class="mb-0" href="{% url 'logout' %}">Logout</a> <i
+                                            class="fa fa-backward" aria-hidden="true"
+                                            style=" color: cadetblue;"></i>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /section title -->
+
+        <!-- Products tab & slick -->
+
+
+        <!-- Products tab & slick -->
+    </div>
+
+    <!-- /row -->
+</div>
+
+<style>
+    
+
+    .main-body {
+        padding: 15px;
+    }
+
+    .card {
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #FBFBFC;
+        background-clip: border-box;
+        border: 0 solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+    a.mb-0 {
+
+        font-weight: bold;
+    }
+
+    .gutters-sm>.col,
+    .gutters-sm>[class*=col-] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .mb-3,
+    .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow-none {
+        box-shadow: none !important;
+    }
+</style>
+
+    
+{% endblock %}

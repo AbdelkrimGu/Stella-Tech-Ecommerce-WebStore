@@ -1,0 +1,249 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li class="active"><a href="{% url 'homepage' %}">Home</a></li>
+						<li><a href="{% url 'categorypage' %}">Categories</a></li>
+						<li><a href="{% url 'brandspage' %}">Brands</a></li>
+						<li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+						<li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+					</ul>
+					<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /NAVIGATION -->
+		
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+
+					<!-- section title -->
+
+					<div class="container">
+						<div class="main-body">
+
+							<!-- Breadcrumb -->
+							<nav aria-label="breadcrumb" class="main-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+									<li class="breadcrumb-item active" aria-current="page">User Profile</li>
+								</ol>
+							</nav>
+							<!-- /Breadcrumb -->
+
+							<div class="row gutters-sm">
+								<div class="col-md-4 mb-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="d-flex flex-column align-items-center text-center">
+												<img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+													alt="Admin" class="rounded-circle" width="150">
+												<div class="mt-3">
+													<h4>{{account.name}}</h4>
+													<p class="text-secondary mb-1">{{account.email}}</p>
+													<p class="text-muted font-size-sm">{{account.Address}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card mt-3">
+										<ul class="list-group list-group-flush">
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a class="mb-0" href="{% url 'checkout' %}">Checkout</a><i
+													class="fa fa-shopping-cart" aria-hidden="true"
+													style=" color: cadetblue;"></i>
+
+											</li>
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a class="mb-0" href="{% url 'wishlist' %}">WishList</a> <i
+													class="fa fa-heart" aria-hidden="true"
+													style="color: cadetblue;"></i>
+
+											</li>
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a class="mb-0" href="{% url 'cart' %}">CartItems</a> <i
+													class="fa fa-cart-arrow-down" aria-hidden="true"
+													style=" color: cadetblue;"></i>
+
+											</li>
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a class="mb-0">Change password</a> <i class="fa fa-exchange"
+													aria-hidden="true" style=" color: cadetblue;"></i>
+
+											</li>
+											<li
+												class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+												<a class="mb-0" href="{% url 'logout' %}">Logout</a> <i
+													class="fa fa-backward" aria-hidden="true"
+													style=" color: cadetblue;"></i>
+
+											</li>
+
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="card mb-3">
+										<div class="card-body">
+											<div class="row">
+												<form method="post" style="    margin-left: 30px;">
+													{% csrf_token %}
+													{{ form.as_p }}
+													<input type="submit" style="margin-left:320px"
+														class="btn btn-info ">
+
+												</form>
+
+
+											</div>
+										</div>
+									</div>
+
+									<div class="row gutters-sm">
+										<div class="col-sm-6 mb-3">
+										</div>
+										<div class="col-sm-6 mb-3">
+										</div>
+									</div>
+
+
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+
+
+				<script>
+
+					function switching(id) {
+						const active = document.getElementsByClassName('Modal-content').item(0);
+						active.setAttribute('style', 'display : none;');
+						active.removeAttribute('class');
+						const newActive = document.getElementById(id);
+						newActive.setAttribute('class', 'Modal-content');
+						newActive.removeAttribute('style');
+						newActive.setAttribute('style', 'display : block;');
+					}
+		/*function login() {
+						document.getElementById('create').style.display = "none";
+						document.getElementById('login').style.display = "block";
+					}
+					function create_acc() {
+			
+						document.getElementById('create').style.display = "block";
+						document.getElementById('login').style.display = "none";
+			
+					}*/
+
+				</script>
+
+
+				<!-- jQuery Plugins -->
+				<script src="{% static 'js/jquery.min.js'%}  "></script>
+				<script src="{% static 'js/bootstrap.min.js'%}"></script>
+				<script src="{% static 'js/slick.min.js'%} "></script>
+				<script src="{% static 'js/nouislider.min.js'%}"></script>
+				<script src="{% static 'js/jquery.zoom.min.js'%}"></script>
+				<script src="{% static 'js/main.js'%}"></script>
+				<script src="{% static 'js/main2.js'%}"></script>
+				<script src="{% static 'js/main3.js'%}"></script>
+				<script type="text/javascript" src="{% static 'js/cart.js'%}"></script>
+				<script src="{% static 'js/popup.js'%}"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+			</div>
+			<style>
+				body {
+					color: #1a202c;
+					text-align: left;
+					background-color: #e2e8f0;
+				}
+
+				
+				.card {
+					box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+				}
+
+				.card {
+					position: relative;
+					display: flex;
+					flex-direction: column;
+					min-width: 0;
+					word-wrap: break-word;
+					background-color: #fff;
+					background-clip: border-box;
+					border: 0 solid rgba(0, 0, 0, .125);
+					border-radius: .25rem;
+				}
+
+				.card-body {
+					flex: 1 1 auto;
+					min-height: 1px;
+					padding: 1rem;
+				}
+
+				.gutters-sm {
+					margin-right: -8px;
+					margin-left: -8px;
+				}
+
+				a.mb-0 {
+
+					font-weight: bold;
+				}
+
+				.gutters-sm>.col,
+				.gutters-sm>[class*=col-] {
+					padding-right: 8px;
+					padding-left: 8px;
+				}
+
+				.mb-3,
+				.my-3 {
+					margin-bottom: 1rem !important;
+				}
+
+				.bg-gray-300 {
+					background-color: #e2e8f0;
+				}
+
+				.h-100 {
+					height: 100% !important;
+				}
+
+				.shadow-none {
+					box-shadow: none !important;
+				}
+			</style>
+
+    {% endblock %}
+

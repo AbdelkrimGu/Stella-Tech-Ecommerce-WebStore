@@ -1,0 +1,12 @@
+{% extends 'dashboard/dash.html' %}
+{% load static %}
+{% block content %}
+<div class="center-column" style="margin-left: 20pc;">
+    <form method="POST" action="." enctype="multipart/form-data" style="margin-bottom : 20pc;">
+		{% csrf_token %}
+		{{form.as_p}}
+        <input class="btn btn-primary" type="submit" name="apply">
+    </form>
+
+</div>
+{% endblock  %}

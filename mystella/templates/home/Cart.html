@@ -1,0 +1,123 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'categorypage' %}">Categories</a></li>
+                <li><a href="{% url 'brandspage' %}">Brands</a></li>
+                <li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">Cart</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Cart</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+
+            <!-- Order Details -->
+            <div class="col-md-12 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">Your Order</h3>
+                </div>
+                <hr>
+                <div class="order-summary">
+                    <div class="order-col">
+                        <div><strong>PRODUCT</strong></div>
+                        <div><strong>TOTAL</strong></div>
+                    </div>
+                    <hr>
+                    <div class="order-products">
+                        {% for item in items %}
+
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{item.product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name" style="    margin-bottom: -1pc;"><a
+                                        href="#">{{item.product.name}}</a></h3>
+                                <div class="quantity" style="display: inline-block;
+                                                                            font-weight: 700;
+                                                                            padding-right: 10px;
+                                                                            margin-left: 58pc;">
+                                    <img data-product="{{item.product.id}}" data-action="add"
+                                        class="chg-quantity update-cart" src="{% static  'img/arrow-up.png' %}"
+                                        width="1%">
+
+                                    <img data-product="{{item.product.id}}" data-action="remove"
+                                        class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}"
+                                        width="1%">
+                                </div>
+                                <h4 class="product-price"><span
+                                        class="qty">{{item.quantity}}x</span>${{item.product.price}}</h4>
+
+                            </div>
+
+                            <button data-product="{{item.product.id}}" data-action="delete"
+                                class="delete update-cart "><i class="fa fa-close update-cart"></i></button>
+                        </div>
+
+                        <hr>
+                        {% endfor %}
+
+                    </div>
+                    <div class="order-col">
+                        <div>Shiping</div>
+                        <div><strong>FREE</strong></div>
+                    </div>
+                    <div class="order-col">
+                        <div><strong>TOTAL</strong></div>
+                        <div><strong class="order-total">${{order.get_total_cart}}</strong></div>
+                    </div>
+                </div>
+
+                <a href="{% url 'checkout' %}" class="primary-btn order-submit">Checkout</a>
+            </div>
+            <!-- /Order Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+{% endblock %}

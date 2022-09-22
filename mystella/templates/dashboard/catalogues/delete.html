@@ -1,0 +1,15 @@
+{% extends 'dashboard/dash.html' %}
+
+{% block content %}
+<div class="task" style="    margin-left: 20pc;">
+    <h5><p>Are you sure you want to delete  <strong>  "{{catalog.title}}" </strong>?</p> </h5></div>
+<br>
+<form method="POST" action="." style="    margin-left: 20pc;">
+	{% csrf_token %}
+    <div class="content">
+	    <input class="btn-mod" type="submit" name="Confirm">
+        <a class="btn-mod" href="{% url 'catalogues' %}" > Cancel</a>
+    </div>
+</form>
+
+{% endblock  %}

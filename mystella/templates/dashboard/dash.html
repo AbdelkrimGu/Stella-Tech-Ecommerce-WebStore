@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% load static %}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stella Tech</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/slick.css'%} " />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/slick-theme.css'%}" />
+
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/nouislider.min.css'%}" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style2.css'%}" />
+
+    <link rel="stylesheet" href="{% static 'css/style3.css'%}">
+    <link rel="stylesheet" href="{% static 'css/aaaa.css'%}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/admin2.css'%}" />
+
+    <link rel="icon" href="{% static 'img/logo-boutique1.ico'%}" type="image/gif" sizes="16x16">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
+
+
+
+
+</head>
+
+
+<body>
+
+    <div class="sidebar">
+        <a href="{% url 'homepage'%}" class="logo">
+            <img src="{% static 'img/LOGOO.png'%}" alt="" width="190">
+        </a>
+        <br><br><br>
+        <a href="{% url 'dash'%}"><i class="fa fa-fw fa-tachometer"></i> Dashboard</a>
+        <a href="{% url 'products'%}"><i class="fa fa-fw  fa-shopping-bag"></i> Products</a>
+        <a href="{% url 'archives'%}"><i class="fa fa-fw  fa-archive"></i> Archive</a>
+        <a href="{% url 'catalogues'%}"><i class="fa fa-fw fa-book"></i> Catalogues</a>
+        <a href="{% url 'brands'%}"><i class="fa fa-fw fa-copyright"></i> Brands</a>
+        <a href="{% url 'orders'%}"><i class="fa fa-fw fa-list-ul"></i> Orders</a>
+        <a href="{% url 'customers'%}"><i class="fa fa-fw fa-user"></i>Customers</a>
+        <a href="{% url 'admins'%}"><i class="fa fa-fw fa-user"></i>Admins</a>
+        <a href="{% url 'homepage'%}"><i class="fa fa-fw fa-home"></i>Back to home</a>
+        <a href="{% url 'logout'%}"><i class="fa fa-fw fa-sign-out"></i> Logout</a>
+
+    </div>
+
+    <main>
+
+        <div class="row">
+
+            <!-- SEARCH BAR -->
+
+            <div class="col-md-6" style="margin-left: 21pc; margin-top: 1pc;">
+                <div class="header-search">
+                    <form method="GET">
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                        {% for error in form.errors %}
+                        {{ error }}
+                        {% endfor %}
+                        {% endif %}
+
+                        <input class="input" placeholder="Search here" name="name" id="id_name">
+                        <button style="height: 40px; width: 100px; background: #248074; color: #FFF; font-weight: 700; border: none;" type="submit">Search</button>
+                    </form>
+                </div>
+            </div> <!-- /SEARCH BAR -->
+
+
+            <div class="col-md-15 clearfix">
+                <div class="header-ctn" style="margin-top:20px; margin-right : -50px">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-bell-o" style="color:#162C38"></i>
+                            <span style="color:#162C38">Notification</span>
+                            <!-- <div class="qty">2</div> -->
+                            <!-- <div class="qty">2</div> -->
+                        </a>
+                        <div class="cart-dropdown">
+                            <div class="cart-list">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-cog" style="color:#162C38"></i>
+                            <span style="color:#162C38">Setting</span>
+                        </a>
+                        <div class="cart-dropdown">
+                            <div class="cart-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+			{% block content %}
+
+
+			{% endblock content %}
+		</div>
+
+
+        
+
+
+
+
+
+    </main>
+
+    <!-- jQuery Plugins -->
+
+
+    <script type="text/javascript">
+        function switching(id) {
+            const active = document.getElementsByClassName('activated').item(0);
+            active.setAttribute('style', 'display : none;');
+            active.removeAttribute('class');
+            const newActive = document.getElementById(id);
+            newActive.setAttribute('class', 'activated');
+            newActive.removeAttribute('style');
+            newActive.setAttribute('style', 'display : block;');
+        }
+
+
+
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                igg.src = URL.createObjectURL(file)
+            }
+        }
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+
+
+
+
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/slick.min.js'%}"></script>
+    <script src="{% static 'js/nouislider.min.js'%}"></script>
+    <script src="{% static 'js/jquery.zoom.min.js'%}"></script>
+    <script src="{% static 'js/main2.js'%}"></script>
+    <script src="{% static 'js/chart.js'%}">
+
+
+    </script>
+
+
+</body>
+
+</html>

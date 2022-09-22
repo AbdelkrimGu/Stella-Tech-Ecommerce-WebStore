@@ -1,0 +1,653 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'categorypage' %}">Categories</a></li>
+                <li><a href="{% url 'brandspage' %}">Brands</a></li>
+                <li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="{% url 'homepage' %}">Home</a></li>
+                    <li><a href="#">Product Detail</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Product main img -->
+
+            <div class="col-md-5 col-md-push-2">
+                <div id="product-main-img">
+                    {% for p in product.images_set.all %}
+                    <div class="product-preview">
+                        <img src="{{p.image.url}}" alt="">
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <!-- /Product main img -->
+
+            <!-- Product thumb imgs -->
+            <div class="col-md-2  col-md-pull-5">
+                <div id="product-imgs">
+                    {% for p in product.images_set.all %}
+                   
+                    <div class="product-preview">
+                        <img src="{{p.image.url}}" alt="" style="height: 150px;">
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <!-- /Product main img -->
+
+            <!-- Product thumb imgs -->
+
+            <!-- /Product thumb imgs -->
+
+            <!-- Product details -->
+            <div class="col-md-5">
+                <div class="product-details">
+                    <h2 class="product-name">{{product.name}}</h2>
+
+                    <ul class="product-links">
+                        <li>Category:</li>
+                        <li><a href="#">{{product.catalog}}</a></li>
+
+                    </ul>
+                    <br />
+                    <div>
+                        <div class="product-rating">
+                            {% if 1 > product.getrate %}
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            {% elif 1 == product.getrate %} <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            {% elif 2 == product.getrate %} <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            {% elif 3 == product.getrate %} <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o empty"></i>
+                            {% elif 4 == product.getrate %}
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            {% endif %}
+                        </div>
+
+                        <a class="review-link" href="#">{{product.total_review}} Review(s) | Add your review</a>
+                    </div>
+
+
+                    <div>
+                        <h3 class="product-price">${{product.price}} <del
+                                class="product-old-price">${{product.price}}</del>
+                        </h3>
+                        <span class="product-available">In Stock</span>
+                    </div>
+
+                    <div class="product-options">
+
+                        <label>
+                            Color
+                            <select class="input-select">
+                                <option value="0">{{product.color}}</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="add-to-cart">
+                        <div class="qty-label">
+                            Quantity
+                            <div class="input-number">
+                                <input type="number" value="1">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+
+                        </div>
+                        <button data-product={{product.id}} data-action="add" class="add-to-cart-btn update-cart"><i
+                                class="fa fa-shopping-cart"></i> add to cart</button>
+
+                    </div>
+
+                    <ul class="product-btns">
+                        <li><a href="#" data-product={{product.id}} data-action="add-wish" class="update-wish"><i
+                                    class="fa fa-heart-o"></i> add to wishlist</a></li>
+
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+            <!-- /Product details -->
+
+            <!-- Product tab -->
+            <div class="col-md-12">
+                <div id="product-tab">
+                    <!-- product tab nav -->
+                    <ul class="tab-nav">
+                        <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+                        <li><a data-toggle="tab" href="#tab2">Details</a></li>
+                        <li><a data-toggle="tab" href="#tab3">Reviews </a></li>
+                    </ul>
+                    <!-- /product tab nav -->
+
+                    <!-- product tab content -->
+                    <div class="tab-content">
+                        <!-- tab1  -->
+                        <div id="tab1" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p style="    font-size: medium;">{{product.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /tab1  -->
+
+                        <!-- tab2  -->
+                        <div id="tab2" class="tab-pane fade in">
+                            <div class="row">
+                                <div class="a" style="text-align:center;">
+                                    <center>
+                                        <table>
+                                            <tr>
+                                                <center>
+                                                    <td><img src="{% static 'img\ram.png'%}" width="50px"
+                                                            style="margin: 20px;"></td>
+                                                </center>
+                                                <center>
+                                                    <td><img src="{% static 'img\processeur.png'%}" width="50px"
+                                                            style="margin: 20px;"></td>
+                                                </center>
+                                                <center>
+                                                    <td><img src="{% static 'img\photo-camera.png'%}" width="50px"
+                                                            style="margin: 20px;"></td>
+                                                </center>
+                                                <center>
+                                                    <td><img src="{% static 'img\lighting.png'%}" width="50px"
+                                                            style="margin: 20px;"></td>
+                                                </center>
+                                                <center>
+                                                    <td><img src="{% static 'img\stockage-de-base-de-donnees.png'%}"
+                                                            style="margin: 20px;" width="50px"></td>
+                                                </center>
+                                                <center>
+                                                    <td><img src="{% static 'img\maximize.png'%}" width="50px"
+                                                            style="margin: 20px;"></td>
+                                                </center>
+                                            </tr>
+                                            <br>
+
+                                            <tr>
+                                                <td>
+                                                    <p>
+                                                        <center style="font-weight: 500; font-family: 'Montserrat';">
+                                                            {{product.System}}</center>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <center style="font-weight: 500; font-family: 'Montserrat';">
+                                                            {{product.Processor}}</center>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <center style="font-weight: 500; font-family: 'Montserrat';">
+                                                            {{product.Cam}}px</center>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <center style="font-weight: 500; font-family: 'Montserrat';">
+                                                            {{product.battery}}</center>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <center style="font-weight: 500; font-family: 'Montserrat';">
+                                                            {{product.Memory}}</center>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <center style="font-weight: 500; font-family: 'Montserrat';">
+                                                            {{product.size}}</center>
+                                                        </>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </center>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /tab2  -->
+
+                        <!-- tab3  -->
+                        <div id="tab3" class="tab-pane fade in">
+                            <div class="row">
+                                <!-- Rating -->
+                                <div class="col-md-3">
+                                    <div id="rating">
+
+                                        <div class="rating-avg">
+                                            <span>{{product.getrate}}</span>
+                                            <div class="product-rating">
+                                                {% if 1 > product.getrate %}
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% elif 1 == product.getrate %} <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% elif 2 == product.getrate %} <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% elif 3 == product.getrate %} <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% elif 4 == product.getrate %}
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+                                        <ul class="rating">
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    {% if product.rater_five == 0 %}
+                                                    <div style="width: 0%;"></div>
+                                                    {% elif product.rater_five == 1 %}
+                                                    <div style="width: 20%;"></div>
+                                                    {% elif product.rater_five == 2 %}
+                                                    <div style="width: 40%;"></div>
+                                                    {% elif product.rater_five == 3 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_five == 4 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_five >= 5 %}
+                                                    <div style="width: 80%;"></div>
+                                                    {% endif %}
+                                                </div>
+                                                <span class="sum">{{product.rater_five}}</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    {% if product.rater_four == 0 %}
+                                                    <div style="width: 0%;"></div>
+                                                    {% elif product.rater_four == 1 %}
+                                                    <div style="width: 20%;"></div>
+                                                    {% elif product.rater_four == 2 %}
+                                                    <div style="width: 40%;"></div>
+                                                    {% elif product.rater_four == 3 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_four == 4 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_four >= 5 %}
+                                                    <div style="width: 80%;"></div>
+                                                    {% endif %}
+
+                                                </div>
+                                                <span class="sum">{{product.rater_four}}</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    {% if product.rater_three == 0 %}
+                                                    <div style="width: 0%;"></div>
+                                                    {% elif product.rater_three == 1 %}
+                                                    <div style="width: 20%;"></div>
+                                                    {% elif product.rater_three == 2 %}
+                                                    <div style="width: 40%;"></div>
+                                                    {% elif product.rater_three == 3 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_three == 4 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_three >= 5 %}
+                                                    <div style="width: 80%;"></div>
+                                                    {% endif %}
+
+                                                </div>
+                                                <span class="sum">{{product.rater_three}}</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    {% if product.rater_two == 0 %}
+                                                    <div style="width: 0%;"></div>
+                                                    {% elif product.rater_two == 1 %}
+                                                    <div style="width: 20%;"></div>
+                                                    {% elif product.rater_two == 2 %}
+                                                    <div style="width: 40%;"></div>
+                                                    {% elif product.rater_two == 3 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_two == 4 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_two >= 5 %}
+                                                    <div style="width: 80%;"></div>
+                                                    {% endif %}
+
+                                                </div>
+                                                <span class="sum">{{product.rater_two}}</span>
+                                            </li>
+                                            <li>
+                                                <div class="rating-stars">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </div>
+                                                <div class="rating-progress">
+                                                    {% if product.rater_one == 0 %}
+                                                    <div style="width: 0%;"></div>
+                                                    {% elif product.rater_one == 1 %}
+                                                    <div style="width: 20%;"></div>
+                                                    {% elif product.rater_one == 2 %}
+                                                    <div style="width: 40%;"></div>
+                                                    {% elif product.rater_one == 3 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_one == 4 %}
+                                                    <div style="width: 60%;"></div>
+                                                    {% elif product.rater_one >= 5 %}
+                                                    <div style="width: 80%;"></div>
+                                                    {% endif %}
+
+                                                </div>
+                                                <span class="sum">{{product.rater_one}}</span>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Rating -->
+
+                                <!-- Reviews -->
+                                <div class="col-md-6">
+                                    <div id="reviews">
+                                        <ul class="reviews">
+                                            {% for review in reviews %}
+                                            {% if review.product.id == product.id %}
+                                            <li>
+                                                <div class="review-heading">
+                                                    <h5 class="name">{{review.username}}</h5>
+                                                    <p class="date">{{review.date_added}}</p>
+                                                    <div class="review-rating">
+                                                        {% if review.rating == 1 %}
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        {% endif %}
+                                                        {% if review.rating == 2 %}
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        {% endif %}
+
+                                                        {% if review.rating == 3 %}
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        {% endif %}
+                                                        {% if review.rating == 4 %}
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        {% endif %}
+                                                        {% if review.rating == 5 %}
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        {% endif %}
+
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="review-body">
+                                                    <p> {{review.text}}</p>
+                                                </div>
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+
+                                        </ul>
+                                        <ul class="reviews-pagination">
+                                            {% if reviews.has_previous %}
+                                            <li><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
+                                            {% else %}
+                                            <li class="disabled"><span>&laquo;</span></li>
+                                            {% endif %}
+                                            {% for i in reviews.paginator.page_range %}
+                                            {% if reviews.number == i %}
+                                            <li class="active"><span>{{ i }} <span
+                                                        class="sr-only">(current)</span></span>
+                                            </li>
+                                            {% else %}
+                                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% if reviews.has_next %}
+                                            <li><a href="?page={{ reviews.next_page_number }}">&raquo;</a></li>
+                                            {% else %}
+                                            <li class="disabled"><span>&raquo;</span></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Reviews -->
+
+                                <!-- Review Form -->
+                                <div class="col-md-3">
+                                    <div id="review-form">
+                                        <form id="addreview" class="review-form" method="post"
+                                            action="{% url 'product_details' product.id %}">
+                                            {% csrf_token %}
+                                            <textarea id="textreview" class="input" placeholder="Your Review" name="text" ></textarea>
+                                            <div class="input-rating">
+                                                <span>Your Rating: </span>
+                                                
+                                                <div class="stars">
+                                                    <input id="star5" name="rating" value="5" type="radio"><label
+                                                        for="star5"></label>
+                                                    <input id="star4" name="rating" value="4" type="radio"><label
+                                                        for="star4"></label>
+                                                    <input id="star3" name="rating" value="3" type="radio"><label
+                                                        for="star3"></label>
+                                                    <input id="star2" name="rating" value="2" type="radio"><label
+                                                        for="star2"></label>
+                                                    <input id="star1" name="rating" value="1" type="radio"><label
+                                                        for="star1"></label>
+                                                </div>
+                                            </div>
+                                            <button class="primary-btn" type="submit">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /Review Form -->
+                            </div>
+                        </div>
+                        <!-- /tab3  -->
+                    </div>
+                    <!-- /product tab content  -->
+                </div>
+            </div>
+            <!-- /product tab -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- Section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Related Products</h3>
+                </div>
+            </div>
+
+            <!-- product -->
+            {% for x in products %}
+            {% if product.catalog == x.catalog %}
+
+            <div class="col-md-3 col-xs-6">
+                <div class="product">
+                    <div class="product-img">
+                        <img src="{{x.imageURL}}" alt="" style="    width: 11em;
+                                                        height: 17em;
+                                                        margin-left: 55px;">
+                        <div class="product-label">
+                            <span class="sale">{{product.getremise}}%</span>
+                            {% if product.is_new %}
+                            <span class="new">NEW</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-category">{{x.category}}</p>
+                        <h3 class="product-name"><a href="{% url 'product_details' product.id %}">{{x.name}}</a></h3>
+                        <h4 class="product-price">${{x.price}} <del class="product-old-price">${{x.old_price}}</del>
+                        </h4>
+                        <div class="product-rating">
+                        </div>
+                        <div class="product-btns">
+                            <button data-product={{product.id}} data-action="add-wish" class="update-wish"><i
+                                    class="fa fa-heart-o update-wish "></i><span class="tooltipp update-wish">add to
+                                    wishlist</span></button>
+                            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
+                                    compare</span></button>
+                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
+                                    view</span></button>
+                        </div>
+                    </div>
+                    <div class="add-to-cart">
+                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <!-- /product -->
+
+
+            <!-- /product -->
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /Section -->
+{% endblock %}

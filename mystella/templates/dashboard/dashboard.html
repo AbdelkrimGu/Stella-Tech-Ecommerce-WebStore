@@ -1,0 +1,106 @@
+{% extends 'dashboard/dash.html' %}
+{% load static %}
+
+{% block content %}
+<div id="Dashboard" class="activated" style="display : block;">
+
+    <div class="row" style=" margin-left: 15%;">
+        <div class="column" style="background-color: #162C38">
+            <h3>Products</h3>
+            <br>
+            <h3>{{total_products}}</h3>
+        </div>
+        <div class="column" style="background-color: #248074">
+            <h3>Categories</h3>
+            <br>
+            <h3>{{total_catalogues}}</h3>
+        </div>
+        <div class="column" style="background-color: #fcc446">
+            <h3>Users</h3>
+            <br>
+            <h3>{{total_users}}</h3>
+        </div>
+        <div class="column" style="background-color: #D05543">
+            <h3>Customers</h3>
+            <br>
+            <h3>{{total_customers}}</h3>
+        </div>
+    </div>
+
+
+
+
+    <div class="row" id="tableau">
+        <div class="col-8 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Orders
+                    </h3>
+
+                </div>
+                <div class="card-content">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>ID Order</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Due date</th>
+                                <th>Accepted</th>
+                                <th></th>
+
+                            </tr>
+
+
+
+                        </thead>
+                        <tbody>
+                            {% for orderitem in orderitems %}
+                            <tr>
+                                <td>{{orderitem.id}}</td>
+                                <td>{{orderitem.product}}</td>
+                                <td>{{orderitem.quantity}}</td>
+                                <td>{{orderitem.order.date_ordered}}</td>
+                                <td>{{orderitem.accepted}}</td>
+                                <td> <a class="btn-mod" href="{% url 'order_edit' orderitem.id %}">Edit</a></td>
+
+
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="container" style="width: 75%;     margin-left: 9pc;
+margin-top: 4pc;">
+        <canvas id="pie-chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+            
+
+        window.onload = function () {
+            var ctx = document.getElementById('pie-chart').getContext('2d');
+            window.myPie = new Chart(ctx, config);
+        };
+
+    </script>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</div>
+
+{% endblock %}

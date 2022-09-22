@@ -1,0 +1,631 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block content %}
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'categorypage' %}">Categories</a></li>
+                <li><a href="{% url 'brandspage' %}">Brands</a></li>
+                <li><a href="{% url 'bestdealpage' %}">Best Deals</a></li>
+                <li><a href="{% url 'topsellingpage' %}">Top selling</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="carousel slide carousel-fade hidden-xs" id="featured">
+
+                    <!--Indicators-->
+                    <ol class="carousel-indicators">
+                        <li data-target="#featured" data-slide-to="0" class="active indicator"></li>
+                        <li data-target="#featured" data-slide-to="1" class="indicator"></li>
+                        <li data-target="#featured" data-slide-to="2" class="indicator"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="carousel-image" src="{% static 'img/banner01.png'%}" alt="banner 1"
+                                style="    height: 10pc;width:75pc;">
+                            <div class="carousel-caption animated fadeInUp" id="caption1-text">
+                            </div>
+                            <div class="carousel-caption animated fadeInUp" id="caption1-button">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img class="carousel-image" src="{% static 'img/banner02.png'%}" alt="banner 2"
+                                style="    height: 10pc;width:75pc;">
+                            <div class="carousel-caption animated fadeInUp">
+                            </div>
+                            <div class="carousel-caption animated fadeInUp" id="caption2-button">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img class="carousel-image" src="{% static 'img/banner03.png'%}" alt="banner 3"
+                                style="    height: 10pc;">
+                            <div class="carousel-caption animated fadeInUp">
+                            </div>
+                            <div class="carousel-caption animated fadeInUp" id="caption3-button">
+                            </div>
+                        </div>
+                    </div>
+                    <!--carousel inner-->
+
+                    <!--Previous Button-->
+                    <a class="left carousel-control" href="#featured" role="button" data-slide="prev">
+                        <i class="bi bi-arrow-left-square"></i>
+
+                    </a>
+                    <!--Next Button-->
+                    <a class="right carousel-control" href="#featured" role="button" data-slide="next">
+                        <i class="bi bi-arrow-right-square"></i>
+                    </a>
+                </div>
+                <!--carousel-->
+                <br>
+            </div>
+            <div class="col-md-12">
+                <div class="section-title">
+
+                    <h3 class="title">Categories</h3>
+
+                    <div class="section-nav">
+
+                        <ul class="section-tab-nav tab-nav">
+                            <li class="active"> <a href="{% url 'categorypage' %}"> Show More</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /section title -->
+
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                {% for catalog in catalogues %}
+
+                                <div class="col-md-4 col-xs-6">
+                                    <div class="shop">
+                                        <div class="shop-img">
+                                            <img src="{{catalog.imageURL}}" alt="" width="300" height="250">
+                                        </div>
+                                        <div class="shop-body">
+                                            <a href="{% url 'ProductItem' catalog.id %}">
+                                                <h3>{{catalog.title}}<br>Collection</h3>
+                                            </a>
+                                            <a href="{% url 'ProductItem' catalog.id %}" class="cta-btn">Shop
+                                                now <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                        <!-- /tab -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Products tab & slick -->
+        </div>
+
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+
+</div>
+<!-- SECTION -->
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">New Products</h3>
+                    <div class="section-nav">
+                        <ul class="section-tab-nav tab-nav">
+                            <li class="active"> <a href="{% url 'bestdealpage' %}"> Show More</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                {% for product in products %}
+                                {% if not product.is_archived %}
+
+                                <div class="product">
+
+
+                                    <a href="{% url 'product_details' product.id %}">
+                                        <div class="product-img">
+
+                                            <img src="{{product.imageURL}}" alt="" width="200" height="400">
+                                            <div class="product-label">
+                                                {% if product.is_promo %}
+                                                <span class="sale">{{product.getremise}}%</span>
+                                                {% endif %}
+
+                                                {% if product.is_new %}
+                                                <span class="new">NEW</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="product-body">
+                                        <p class="product-category">{{product.catalog}}</p>
+
+                                        <h3 class="product-name"><a
+                                                href="{% url 'product_details' product.id %}">{{product.name}}</a>
+                                        </h3>
+                                        <h4 class="product-price">${{product.price}}<del
+                                                class="product-old-price">${{product.old_price}}</del></h4>
+                                        <div class="product-rating">
+                                            {% if 1 > product.getrate %}
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            {% elif 1 <= product.getrate %} <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% elif 2 <= product.getrate %} <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                    {% elif 3 <= product.getrate %} <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        {% elif 4 <= product.getrate %} <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            {% endif %}
+                                        </div>
+
+                                        <div class="product-btns">
+                                            <button  data-product={{product.id}} data-action="add-wish"
+                                                class="update-wish"><i class="fa fa-heart-o "></i><span
+                                                    class="tooltipp update-wish">add to wishlist</span></button>
+                                            <button class="add-to-compare"><i class="fa fa-exchange"></i><span
+                                                    class="tooltipp">add to compare</span></button>
+                                            <button class="quick-view"><i class="fa fa-eye"></i><span
+                                                    class="tooltipp">quick view</span></button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button data-product={{product.id}} data-action="add" 
+                                            class="add-to-cart-btn update-cart"> <i class="fa fa-shopping-cart"></i> add to cart</button> <br>
+                                    </div>
+                                </div>
+                                {%endif%}
+                                {%endfor%}
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- /tab -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Products tab & slick -->
+        </div>
+
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hot-deal">
+                    <ul class="hot-deal-countdown">
+                        <li>
+                            <div>
+                                <h3>02</h3>
+                                <span>Days</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>10</h3>
+                                <span>Hours</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>34</h3>
+                                <span>Mins</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>60</h3>
+                                <span>Secs</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <h2 class="text-uppercase">Best Deal This Week</h2>
+                    <p>New Collection Up to 50% OFF</p>
+                    <a class="primary-btn cta-btn" href="#">Shop now</a>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /HOT DEAL SECTION -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">flash deal</h3>
+                    <div class="section-nav">
+                        <ul class="section-tab-nav tab-nav">
+                            <li class="active"><a data-toggle="tab" href="{% url 'bestdealpage' %}">Show More</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab2" class="tab-pane fade in active">
+                            <div class="products-slick" data-nav="#slick-nav-2">
+                                {%for product in products %}
+                                {% if product.is_flash_deal and not product.is_archived %}
+
+                                <!-- product -->
+                                <div class="product">
+                                    <a href="./product.html">
+                                        <div class="product-img">
+                                            <img src="{{product.imageURL}}" alt="">
+                                            <div class="product-label">
+                                                <span class="sale">{{product.getremise}}%</span>
+
+                                                {% if product.is_new %}
+                                                <span class="new">NEW</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </a>
+                                    <div class="product-body">
+                                        <p class="product-category">{{product.catalog}}</p>
+                                        <h3 class="product-name"><a
+                                                href="{% url 'product_details' product.id %}">{{product.name}}</a>
+                                        </h3>
+                                        <h4 class="product-price">${{product.price}} <del
+                                                class="product-old-price">${{product.old_price}}</del></h4>
+                                        <div class="product-rating">
+                                            {% if 1 > product.getrate %}
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                            {% elif 1 <= product.getrate %} <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% elif 2 <= product.getrate %} <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                    {% elif 3 <= product.getrate %} <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o empty"></i>
+                                                        {% elif 4 <= product.getrate %} <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            {% endif %}
+                                        </div>
+                                        <div class="product-btns">
+                                            <button data-product={{product.id}} data-action="add-wish"
+                                                class="update-wish"><i class="fa fa-heart-o update-wish "></i><span
+                                                    class="tooltipp update-wish">add to wishlist</span></button>
+                                            <button class="add-to-compare"><i class="fa fa-exchange"></i><span
+                                                    class="tooltipp">add to compare</span></button>
+                                            <button class="quick-view"><i class="fa fa-eye"></i><span
+                                                    class="tooltipp">quick view</span></button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button data-product={{product.id}} data-action="add"
+                                            class="add-to-cart-btn update-cart"> add to cart</button>
+                                    </div>
+                                </div>
+                                <!-- /product -->
+
+                                {% endif %}
+                                {% endfor %}
+
+
+                            </div>
+                            <div id="slick-nav-2" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- /Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-4 col-xs-6">
+                <div class="section-title">
+                    <h4 class="title">Top selling</h4>
+                    <div class="section-nav">
+                        <div id="slick-nav-3" class="products-slick-nav"></div>
+                    </div>
+                </div>
+
+                <div class="products-widget-slick" data-nav="#slick-nav-3">
+                    <div>
+                        <!-- product widget -->
+                        {% for product in products %}
+                        {% if product.is_top_selling and not product.is_archived %}
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.category}}</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.old_price}}</del></h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- /product widget -->
+
+
+                    </div>
+
+                    <div>
+                        <!-- product widget -->
+                        {% for product in products %}
+                        {% if product.is_top_selling and not product.is_archived %}
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.category}}</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.old_price}}</del></h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- /product widget -->
+                        <!-- product widget -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-6">
+                <div class="section-title">
+                    <h4 class="title">Top ranking</h4>
+                    <div class="section-nav">
+                        <div id="slick-nav-4" class="products-slick-nav"></div>
+                    </div>
+                </div>
+
+                <div class="products-widget-slick" data-nav="#slick-nav-4">
+                    <div>
+                        <!-- product widget -->
+                        {% for product in products %}
+                        {% if product.is_top_ranking and not product.is_archived %}
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.category}}</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.old_price}}</del></h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- /product widget -->
+                    </div>
+                    <div>
+                        <!-- product widget -->
+                        {% for product in products %}
+                        {% if product.is_top_ranking and not product.is_archived %}
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.category}}</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.old_price}}</del></h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- /product widget -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix visible-sm visible-xs"></div>
+
+            <div class="col-md-4 col-xs-6">
+                <div class="section-title">
+                    <h4 class="title">Top ranking</h4>
+                    <div class="section-nav">
+                        <div id="slick-nav-5" class="products-slick-nav"></div>
+                    </div>
+                </div>
+
+                <div class="products-widget-slick" data-nav="#slick-nav-5">
+                    <div>
+                        <!-- product widget -->
+                        <!-- product widget -->
+                        {% for product in products %}
+                        {% if product.is_flash_deal and not product.is_archived %}
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.category}}</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.old_price}}</del></h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- /product widget -->
+                        <!-- /product widget -->
+
+                        <!-- product widget -->
+
+                        <!-- /product widget -->
+
+                        <!-- product widget -->
+
+                        <!-- product widget -->
+                    </div>
+
+                    <div>
+                        <!-- product widget -->
+                        {% for product in products %}
+                        {% if product.is_flash_deal and not product.is_archived %}
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <img src="{{product.imageURL}}" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{product.category}}</p>
+                                <h3 class="product-name"><a
+                                        href="{% url 'product_details' product.id %}">{{product.name}}</a></h3>
+                                <h4 class="product-price">${{product.price}} <del
+                                        class="product-old-price">${{product.old_price}}</del></h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- /product widget -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+{% endblock %}

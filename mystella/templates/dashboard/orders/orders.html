@@ -1,0 +1,63 @@
+{% extends 'dashboard/dash.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="orders" class="activated" style="display : block;">
+
+
+
+    <div class="row" id="tableau">
+        <div class="col-8 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Orders
+                    </h3>
+
+                </div>
+                <div class="card-content">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>ID Order</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Due date</th>
+                                <th>accepted</th>
+
+                            </tr>
+
+
+
+                        </thead>
+                        <tbody>
+                            {% for orderitem in orderitems %}
+                            {% if orderitem.accepted %}
+                            <tr>
+                                <td>{{orderitem.id}}</td>
+                                <td>{{orderitem.product}}</td>
+                                <td>{{orderitem.quantity}}</td>
+                                <td>{{orderitem.order.date_ordered}}</td>
+                                <td>{{orderitem.accepted}}</td>
+
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}
